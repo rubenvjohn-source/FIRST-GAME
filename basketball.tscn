@@ -1,0 +1,23 @@
+[gd_scene format=3 uid="uid://dh6hqhsptj3e0"]
+
+[ext_resource type="Script" uid="uid://6lup6htg5c0r" path="res://basketball_2d5.gd" id="1_impb6"]
+[ext_resource type="Texture2D" uid="uid://du5y8fpeyplkj" path="res://basketball.png" id="2_hvw6b"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_xn3gb"]
+
+[node name="Basketball" type="CharacterBody2D" unique_id=899329582]
+script = ExtResource("1_impb6")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=294297601]
+shape = SubResource("CircleShape2D_xn3gb")
+
+[node name="Shadow" type="Sprite2D" parent="." unique_id=962360175]
+modulate = Color(0, 0, 0, 0.50980395)
+scale = Vector2(0.35, 0.35)
+texture = ExtResource("2_hvw6b")
+
+[node name="VisualRoot" type="Node2D" parent="." unique_id=1888050697]
+
+[node name="BallSprite" type="Sprite2D" parent="VisualRoot" unique_id=1524526888]
+scale = Vector2(1.3, 1.3)
+texture = ExtResource("2_hvw6b")

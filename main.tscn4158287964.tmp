@@ -1,0 +1,104 @@
+[gd_scene format=3 uid="uid://cccxdeirsxo6a"]
+
+[ext_resource type="Texture2D" uid="uid://df8n8ns23poby" path="res://Retro_Pixel_Basketball_Court.webp" id="1_lquwl"]
+[ext_resource type="PackedScene" uid="uid://cu53csj8syb7y" path="res://player2.tscn" id="2_7mycd"]
+[ext_resource type="PackedScene" uid="uid://b7wrmndgo7umq" path="res://player.tscn" id="3_272bh"]
+[ext_resource type="PackedScene" uid="uid://dh6hqhsptj3e0" path="res://basketball.tscn" id="4_5vw27"]
+[ext_resource type="Script" uid="uid://dgtlaj1tpoyuo" path="res://game_manager_2d5.gd" id="5_kek77"]
+[ext_resource type="Script" uid="uid://dhfndav4w14nl" path="res://camera_shake.gd" id="6_cam"]
+[ext_resource type="Script" uid="uid://bwkgtcebjvkbl" path="res://hud.gd" id="8_hud"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_lowgrav"]
+size = Vector2(240, 170)
+
+[node name="Main" type="Node2D" unique_id=172847706]
+y_sort_enabled = true
+
+[node name="Court" type="Sprite2D" parent="." unique_id=755853391]
+z_index = -1
+position = Vector2(640, 293)
+texture = ExtResource("1_lquwl")
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=1504819736]
+position = Vector2(640, 360)
+script = ExtResource("6_cam")
+
+[node name="Left Hoop" type="Node2D" parent="." unique_id=809711894]
+position = Vector2(205, 320)
+
+[node name="Right Hoop" type="Node2D" parent="." unique_id=556511438]
+position = Vector2(1079, 320)
+
+[node name="LowGravityZone" type="Area2D" parent="." unique_id=1918740779 groups=["low_gravity_zones"]]
+position = Vector2(640, 416)
+scale = Vector2(10, 10)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LowGravityZone" unique_id=935513387]
+scale = Vector2(10, 10)
+shape = SubResource("RectangleShape2D_lowgrav")
+
+[node name="Tint" type="Polygon2D" parent="LowGravityZone" unique_id=724212224]
+z_index = -1
+color = Color(0.6, 0.3, 1, 0.22)
+polygon = PackedVector2Array(-120, -85, 120, -85, 120, 85, -120, 85)
+
+[node name="Player" parent="." unique_id=997345960 instance=ExtResource("2_7mycd")]
+position = Vector2(330, 420)
+player_id = null
+move_speed = null
+jump_force = null
+is_bot = null
+shot_charge_speed = 0.8
+min_shot_charge = null
+max_shot_distance = 400.0
+dunk_range = null
+dunk_height_threshold = null
+dunk_flight_speed = null
+dunk_rim_lift = null
+dash_speed = null
+dash_duration = null
+dash_cooldown = null
+steal_tackle_radius = null
+elevation_gravity = null
+pickup_radius = null
+pickup_cooldown_time = null
+stun_duration = null
+
+[node name="Player2" parent="." unique_id=1873128138 instance=ExtResource("3_272bh")]
+position = Vector2(950, 420)
+player_id = 2
+move_speed = null
+jump_force = null
+is_bot = null
+shot_charge_speed = 0.2
+min_shot_charge = null
+max_shot_distance = 400.0
+dunk_range = null
+dunk_height_threshold = null
+dunk_flight_speed = null
+dunk_rim_lift = null
+dash_speed = null
+dash_duration = null
+dash_cooldown = null
+steal_tackle_radius = null
+elevation_gravity = null
+pickup_radius = null
+pickup_cooldown_time = null
+stun_duration = null
+
+[node name="Basketball" parent="." unique_id=1813641414 instance=ExtResource("4_5vw27")]
+z_index = 2
+position = Vector2(640, 415)
+
+[node name="HUD" type="CanvasLayer" parent="." unique_id=889884603]
+script = ExtResource("8_hud")
+
+[node name="GameManager" type="Node2D" parent="." unique_id=723311807 node_paths=PackedStringArray("player_1", "player_2", "basketball", "hoop_p1_target", "hoop_p2_target", "camera_shake", "obstacle_manager")]
+script = ExtResource("5_kek77")
+player_1 = NodePath("../Player")
+player_2 = NodePath("../Player2")
+basketball = NodePath("../Basketball")
+hoop_p1_target = NodePath("../Right Hoop")
+hoop_p2_target = NodePath("../Left Hoop")
+camera_shake = NodePath("../Camera2D")
+obstacle_manager = NodePath("")
